@@ -4,9 +4,10 @@
 :root {
     --bg-main: #e5f2ff;
     --bg-secondary: #eef6ff;
-    --bg-card: #fff;
+    --bg-card: #d6d6d6;
     --bg-accent: #006bd6;
-    --text-main: #3f3f3f;
+    --hover-accent-color: #0058b1;
+    --text-main: #5c5c5c;
     --text-heading: #202020;
     --text-accent: #fff;
     --border-color: #c0d4e3;

@@ -29,7 +29,7 @@ export const Nav = ({ styleVariant = 'desktop' }: Props) => {
                 transition={{ duration: 0.3 }}
                 className={cn(
                     'bg-(--bg-secondary) border-(--border-color)',
-                    isMobile ? 'fixed w-5/6 h-screen top-0 right-0 border-l-2' : 'w-fit border-r-2 h-full pt-5'
+                    isMobile ? 'fixed w-5/6 h-screen top-0 right-0 border-l-2 z-50' : 'w-fit border-r-2 h-full pt-5'
                 )}
             >
                 {isMobile && (
@@ -43,25 +43,35 @@ export const Nav = ({ styleVariant = 'desktop' }: Props) => {
                 )}
 
                 <ul className={cn('border-y border-(--border-color) overflow-auto', isMobile ? 'h-[calc(100vh-48px)]' : 'h-full')}>
-                    {navConfig.map(item => (
-                        <li key={item.path} className="relative border-(--border-color) border-b overflow-hidden">
-                            <Text styleVariant={'sm'} className="font-bold">
-                                <Link
-                                    to={item.path}
-                                    className={cn('flex items-center gap-3 py-4 px-8 md:px-20', {
-                                        'bg-(--bg-accent) text-(--text-accent)': item.path.includes(path),
-                                    })}
-                                >
-                                    {item.path.includes(path) && (
-                                        <span className={cn('absolute w-4.5 h-4.5 bg-(--both-white) rotate-45', isMobile ? '-left-3' : '-right-3')} />
-                                    )}
+                    {navConfig.map(item => {
+                        const isActive = item.path === path || path.startsWith(item.path + '/');
 
-                                    {item.icon && <item.icon className="text-lg md:text-xl" />}
-                                    {item.text}
-                                </Link>
-                            </Text>
-                        </li>
-                    ))}
+                        return (
+                            <li key={item.path} className="relative border-(--border-color) border-b overflow-hidden">
+                                <Text styleVariant={'sm'} className="font-bold">
+                                    <Link
+                                        to={item.path}
+                                        onClick={e => isActive && e.preventDefault()}
+                                        className={cn(
+                                            'flex items-center gap-3 py-4 px-8 md:px-20 hover:bg-(--hover-accent-color) hover:text-(--text-accent) transition-all duration-200 ease-out',
+                                            {
+                                                'bg-(--bg-accent) text-(--text-accent)': isActive,
+                                            }
+                                        )}
+                                    >
+                                        {isActive && (
+                                            <span
+                                                className={cn('absolute w-4.5 h-4.5 bg-(--both-white) rotate-45', isMobile ? '-left-3' : '-right-3')}
+                                            />
+                                        )}
+
+                                        {item.icon && <item.icon className="text-lg md:text-xl" />}
+                                        {item.text}
+                                    </Link>
+                                </Text>
+                            </li>
+                        );
+                    })}
                 </ul>
             </motion.nav>
         </div>
