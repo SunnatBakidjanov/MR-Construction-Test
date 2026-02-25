@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import './root.css';
+@import './fonts.css';
 
 body {
+    font-family: 'Inter Tight', sans-serif;
+    color: var(--text-main);
     background-color: var(--bg-main);
 }

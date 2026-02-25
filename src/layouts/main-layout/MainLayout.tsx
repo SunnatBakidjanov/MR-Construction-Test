@@ -10,8 +10,10 @@ export const MainLayout = () => {
         <Container styleVariant={'main'}>
             <Header />
 
-            <main className="flex-1">
-                <Nav />
+            <main className="flex flex-1">
+                <div className="hidden md:block">
+                    <Nav />
+                </div>
                 <Outlet />
             </main>
 

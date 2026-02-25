@@ -12,7 +12,7 @@ export const Text = ({ className, styleVariant, ...rest }: Props) => {
                 {
                     'text-xs md:text-sm': styleVariant === 'xs',
                     'text-sm md:text-base': styleVariant === 'sm',
-                    'md:text-lg': styleVariant === 'md',
+                    'md:text-lg lg:text-xl': styleVariant === 'md',
                 },
                 className
             )}
