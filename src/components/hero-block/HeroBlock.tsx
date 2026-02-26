@@ -24,7 +24,7 @@ export const HeroBlock = ({ linkTo, linkInner, config }: Props) => {
                     {linkTo && (
                         <Link
                             to={linkTo}
-                            className="flex justify-center items-center gap-1 relative h-fit py-2 sm:py-2.5 px-12 bg-(--bg-accent) text-(--both-white) shadow-[0_4px_4px_var(--shadow-main-color)] cursor-pointer rounded-lg mt-2 shrink-0 active:top-1 active:shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color) transition-all duration-200 ease-out"
+                            className="flex justify-center items-center gap-1 relative h-fit py-2 sm:py-2.5 px-12 bg-(--bg-accent) text-(--both-white) shadow-[0_4px_4px_var(--shadow-main-color)] cursor-pointer rounded-lg mt-3 shrink-0 active:top-1 active:shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color) transition-all duration-200 ease-out"
                         >
                             {linkInner}
                             {config.link}

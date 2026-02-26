@@ -4,6 +4,8 @@ import { useShowCounter } from './hooks/useShowCounter';
 import { RiFileListLine } from 'react-icons/ri';
 import { Text } from '@/components/text/Text';
 import { Btn } from '@/components/btn/Btn';
+import { useCreateResource } from '@/queries/createResource.queries';
+import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
 
 export type FormValues = { name: string };
 
@@ -13,19 +15,15 @@ export const CreateResourceForm = () => {
         register,
         handleSubmit,
         control,
-        formState: { errors, isSubmitting },
+        formState: { errors },
         reset,
     } = useForm<FormValues>({ mode: 'onSubmit' });
 
     const { showCounter, maxLength, length } = useShowCounter({ control });
-
-    const onSubmit = (data: FormValues) => {
-        console.log(data);
-        reset();
-    };
+    const { mutate, isPending } = useCreateResource({ reset });
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 sm:gap-6">
+        <form onSubmit={handleSubmit(data => mutate(data))} className="grid gap-4 sm:gap-6">
             <div className="flex flex-col gap-1">
                 <label className="grid gap-2 md:gap-2.5 sm:max-w-xl">
                     <Text styleVariant={'md'}>Название ресурса</Text>
@@ -83,8 +81,8 @@ export const CreateResourceForm = () => {
                 </AnimatePresence>
             </div>
 
-            <Btn type="submit" disabled={isSubmitting}>
-                Создать
+            <Btn type="submit" disabled={isPending}>
+                {isPending ? <DottedLoader /> : 'Создать'}
             </Btn>
         </form>
     );

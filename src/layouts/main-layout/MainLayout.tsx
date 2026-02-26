@@ -14,6 +14,7 @@ export const MainLayout = () => {
                 <div className="hidden md:block">
                     <Nav />
                 </div>
+
                 <Outlet />
             </main>
 

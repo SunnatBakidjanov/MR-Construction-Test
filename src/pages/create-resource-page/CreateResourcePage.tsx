@@ -4,7 +4,7 @@ import { CreateResourceHero } from './componentns/blocks/create-resource-hero/Cr
 // Страница создания ресурса
 export const CreateResourcePage = () => {
     return (
-        <div className="w-full">
+        <div className="w-full pb-6 md:pb-10 lg:mb-14">
             <CreateResourceHero />
 
             <CreateResourceMain />
