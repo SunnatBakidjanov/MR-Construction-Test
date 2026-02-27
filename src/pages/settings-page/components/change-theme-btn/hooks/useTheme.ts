@@ -18,7 +18,11 @@ const setTheme = (theme: Theme) => {
 
 // Хук для смены темы
 export const useTheme = () => {
-    const [isDark, setIsDark] = useState(() => getTheme() === 'dark');
+    const [isDark, setIsDark] = useState(() => {
+        const theme = getTheme();
+        setTheme(theme);
+        return theme === 'dark';
+    });
 
     const toggle = () => {
         const newTheme = isDark ? 'light' : 'dark';
