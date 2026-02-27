@@ -134,7 +134,7 @@ export const RecourceMain = () => {
                                                                     className={cn(
                                                                         'flex items-center justify-center h-full rounded-sm py-2.5 transition-all duration-200 ease-out cursor-pointer w-full',
                                                                         type === 'Confirmed'
-                                                                            ? 'bg-(--status-created) shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color)'
+                                                                            ? 'bg-(--bg-accent) shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color)'
                                                                             : 'bg-(--status-cancelled) shadow-[0_2px_2px_var(--shadow-red-color)] hover:bg-(--shadow-red-color)'
                                                                     )}
                                                                     key={type}
