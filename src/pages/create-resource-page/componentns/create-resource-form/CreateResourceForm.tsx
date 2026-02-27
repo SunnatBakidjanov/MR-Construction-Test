@@ -4,7 +4,7 @@ import { useShowCounter } from './hooks/useShowCounter';
 import { RiFileListLine } from 'react-icons/ri';
 import { Text } from '@/components/text/Text';
 import { Btn } from '@/components/btn/Btn';
-import { useCreateResource } from '@/queries/createResource.queries';
+import { useCreateResource } from '@/queries/useCreateResource.queries';
 import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
 
 export type FormValues = { name: string };
@@ -15,12 +15,13 @@ export const CreateResourceForm = () => {
         register,
         handleSubmit,
         control,
+        setError,
         formState: { errors },
         reset,
     } = useForm<FormValues>({ mode: 'onSubmit' });
 
     const { showCounter, maxLength, length } = useShowCounter({ control });
-    const { mutate, isPending } = useCreateResource({ reset });
+    const { mutate, isPending } = useCreateResource({ reset, setError });
 
     return (
         <form onSubmit={handleSubmit(data => mutate(data))} className="grid gap-4 sm:gap-6">

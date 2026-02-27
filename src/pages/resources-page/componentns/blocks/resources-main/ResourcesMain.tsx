@@ -4,15 +4,16 @@ import { TitleMain } from '@/components/title-main/TitleMain';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SlMagnifier } from 'react-icons/sl';
-import { useResources } from '@/queries/getAllResources.queries';
+import { useAllResources } from '@/queries/useAllRecources.queries';
 import { RoundedLoader } from '@/components/loaders/rounded-loader/RoundedLoader';
 import { Title } from '@/components/title/Title';
 import { MdOutlineRefresh } from 'react-icons/md';
+import { resurcesUrl } from '@/utils/appUrls';
 
 // Блок отображения всех ресурсов
 export const ResourcesMain = () => {
     const [search, setSearch] = useState('');
-    const { data, isLoading, isFetching, refetch } = useResources();
+    const { data, isLoading, isFetching, refetch } = useAllResources();
 
     const filteredResources = () => {
         if (data?.resources) {
@@ -84,7 +85,7 @@ export const ResourcesMain = () => {
                                 {filtered.map(resource => (
                                     <li
                                         key={resource.id}
-                                        className="flex justify-between items-center rounded-md gap-5 md:gap-7 py-3.5 px-2 md:px-2.5 border border-(--border-color)"
+                                        className="flex justify-between items-center rounded-md gap-5 md:gap-7 py-3.5 lg:py-4 px-2 md:px-2.5 lg:px-3 border border-(--border-color)"
                                     >
                                         <Text styleVariant={'sm'} className={'leading-relaxed'}>
                                             {resource.name}
@@ -92,7 +93,7 @@ export const ResourcesMain = () => {
 
                                         <Text styleVariant={'sm'}>
                                             <Link
-                                                to={''}
+                                                to={`${resurcesUrl}/${resource.id}`}
                                                 className="py-2 px-6 bg-(--bg-accent) text-(--both-white) hover:bg-(--hover-accent-color) rounded transition-all duration-200 ease-out shadow-[0_2px_2px_var(--shadow-main-color)]"
                                             >
                                                 Перейти

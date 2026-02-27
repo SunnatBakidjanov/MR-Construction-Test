@@ -1,5 +1,12 @@
-const APP_URL = 'http://localhost:8000';
+import type { Resource } from '@/types/resources.type';
 
 // URL для запросов к API
-export const apiCreateResourceUrl = `${APP_URL}/api/resources/create`;
-export const apiGetAllResourcesUrl = `${APP_URL}/api/resources/all`;
+const APP_URL = 'http://localhost:8000/api';
+
+// Ресурсы
+export const apiCreateResourceUrl = `${APP_URL}/resources/create`;
+export const apiGetAllResourcesUrl = `${APP_URL}/resources/all`;
+export const apiGetResourceUrl = `${APP_URL}/resources`;
+
+// Бронирование
+export const apiCreateBookingUrl = (id: Resource['id']) => `${APP_URL}/resources/${id}/booking`;

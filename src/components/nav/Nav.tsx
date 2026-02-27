@@ -51,7 +51,6 @@ export const Nav = ({ styleVariant = 'desktop' }: Props) => {
                                 <Text styleVariant={'sm'} className="font-bold">
                                     <Link
                                         to={item.path}
-                                        onClick={e => isActive && e.preventDefault()}
                                         className={cn(
                                             'flex items-center gap-3 py-4 px-8 md:px-20 hover:bg-(--hover-accent-color) hover:text-(--text-accent) transition-all duration-200 ease-out',
                                             {

@@ -11,9 +11,9 @@ export const ResourcesHero = () => {
             config={config}
             linkTo={createResourceUrl}
             linkInner={
-                <span className="relative block w-4 h-4">
+                <span className="flex items-center w-4 h-4">
                     {Array.from({ length: 2 }).map((_, i) => (
-                        <span key={i} className={cn('absolute block w-0.5 h-full bg-(--both-white)', i % 2 === 0 && 'rotate-90')} />
+                        <span key={i} className={cn('absolute block w-0.5 h-4 bg-(--both-white) mt-px', i % 2 === 0 && 'rotate-90')} />
                     ))}
                 </span>
             }

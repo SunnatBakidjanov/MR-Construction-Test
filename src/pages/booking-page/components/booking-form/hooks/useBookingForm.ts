@@ -1,0 +1,31 @@
+import { useWatch } from 'react-hook-form';
+import type { FormValues } from '../BookingForm';
+import type { Control } from 'react-hook-form';
+
+type Inputs = { label: string; name: keyof FormValues; required: string };
+
+// Хук для управления состоянем формы бронирования
+export const useBookingForm = ({ control }: { control: Control<FormValues> }) => {
+    const startTime = useWatch({ control, name: 'startTime' });
+    const endTime = useWatch({ control, name: 'endTime' });
+
+    const inputsConfig = [
+        { label: 'Начало', name: 'startTime', required: 'Выберите время начала' },
+        { label: 'Окончание', name: 'endTime', required: 'Выберите время окончания' },
+    ] as Inputs[];
+
+    const validateBooking = () => {
+        if (!startTime || !endTime) return true;
+
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+        const now = new Date();
+
+        if (start >= end) return 'Время начала должно быть раньше времени окончания';
+        if (start < now) return 'Нельзя выбрать дату в прошлом';
+
+        return true;
+    };
+
+    return { inputsConfig, validateBooking };
+};
