@@ -12,14 +12,22 @@ import { useUpdateBookingStatus } from '@/queries/booking/useUpdateBookingStatus
 import { useRecourceMain } from './hooks/useRecourceMain';
 import type { FilterListConfig, ChangeStatusBtnsConfig } from './hooks/useRecourceMain';
 import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
+import { useState } from 'react';
+import type { BookingStatus } from '@/types/resources.type';
 
 export const RecourceMain = () => {
     const { id } = useParams();
+    const [pendingId, setPendingId] = useState<string | null>(null);
 
     const { data, refetch, isLoading, isFetching } = useAllResourceBooking(id ? id : '');
-    const { mutate, isPending } = useUpdateBookingStatus(id ? id : '');
+    const { mutate } = useUpdateBookingStatus(id ? id : '');
     const { bookings } = data || {};
     const { sort, filterListConfig, chageStatusBtnsConfig, formatBookingDate, sortedBookings } = useRecourceMain({ bookings });
+
+    const handleUpdateStatus = (bookingId: string, status: BookingStatus) => {
+        setPendingId(bookingId);
+        mutate({ bookingId, status }, { onSettled: () => setPendingId(null) });
+    };
 
     return (
         <section className="pt-6 lg:pt-8">
@@ -47,7 +55,7 @@ export const RecourceMain = () => {
                             <div className="mt-20 md:mt-25 lg:mt-30 flex justify-center w-full">
                                 <RoundedLoader className="w-24 h-24" />
                             </div>
-                        ) : bookings?.length > 0 ? (
+                        ) : bookings && bookings?.length > 0 ? (
                             <div className="space-y-3 md:space-y-5">
                                 <ul className="grid grid-cols-3 border border-(--border-color)">
                                     {filterListConfig.map(({ title, type, fn }: FilterListConfig) => {
@@ -118,7 +126,7 @@ export const RecourceMain = () => {
 
                                                 <div className="flex items-center justify-center gap-1 sm:gap-2 lg:gap-3 mx-1 md:mx-2 h-full w-full max-w-sm">
                                                     {booking.status === 'Created' ? (
-                                                        isPending ? (
+                                                        pendingId === booking.id ? (
                                                             <DottedLoader classNames={{ dot: 'bg-(--bg-accent)' }} />
                                                         ) : (
                                                             chageStatusBtnsConfig.map(({ icon: Icon, type }: ChangeStatusBtnsConfig) => (
@@ -131,7 +139,7 @@ export const RecourceMain = () => {
                                                                     )}
                                                                     key={type}
                                                                     type="button"
-                                                                    onClick={() => mutate({ bookingId: booking.id, status: type })}
+                                                                    onClick={() => handleUpdateStatus(booking.id, type)}
                                                                 >
                                                                     <Icon className="text-(--both-white)" />
                                                                 </button>

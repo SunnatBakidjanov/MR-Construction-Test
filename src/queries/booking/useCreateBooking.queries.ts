@@ -7,6 +7,7 @@ import type { UseFormSetError } from 'react-hook-form';
 import type { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import type { CreateBookingRes } from '@/types/resources.type';
+import { toast } from 'react-toastify';
 
 type Args = { resourceId: Resource['id']; setError: UseFormSetError<FormValues> };
 type ApiError = { message?: string };
@@ -28,13 +29,12 @@ export const useCreateBooking = ({ resourceId, setError }: Args) => {
                 };
             });
 
+            toast.success('Бронирование создано');
             naviagate(`/resources/${resourceId}`);
         },
 
         onError: (error: Error) => {
             const err = error as AxiosError<ApiError>;
-            console.log('response:', err?.response);
-            console.log('data:', err?.response?.data);
 
             if (err?.response?.data?.message === 'Booking overlaps' && err.status === 409) {
                 setError('root', { type: 'custom', message: 'Пересечение бронирований' });

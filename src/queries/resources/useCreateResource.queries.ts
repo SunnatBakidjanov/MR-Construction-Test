@@ -6,6 +6,7 @@ import { resourcesKey } from '@/utils/queryKeys';
 import { useNavigate } from 'react-router-dom';
 import { resurcesUrl } from '@/utils/appUrls';
 import type { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 type Args<T extends FormValues> = { reset: UseFormReset<T>; setError: UseFormSetError<T> };
 type ApiError = { message: string };
@@ -21,6 +22,7 @@ export const useCreateResource = ({ reset, setError }: Args<FormValues>) => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: resourcesKey.all });
 
+            toast.success('Ресурс создан');
             reset?.();
             navigate(resurcesUrl);
         },

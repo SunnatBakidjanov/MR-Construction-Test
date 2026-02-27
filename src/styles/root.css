@@ -24,12 +24,22 @@
 
 /* ------------------ Тёмная тема ------------------ */
 :root[data-theme='dark'] {
-    --bg-main: #1a1a1a;
-    --bg-card: #2b2b2b;
-    --bg-accent: #3d2a1f;
-    --text-main: #ccc;
+    --bg-main: #121212;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #242424;
+    --bg-accent: #ff9b0e;
+    --hover-accent-color: #d87e00;
+    --text-main: #cfcfcf;
     --text-heading: #fff;
-    --text-accent: #fff;
-    --border-color: #ff9f1c;
+    --text-accent: #121212;
+    --border-color: #3a3a3a;
+    --shadow-main-color: rgb(0, 0, 0, 0.6);
+    --shadow-red-color: #ff4d4f;
     --both-white: #fff;
+
+    /* статусы */
+    --status-created: #4dabf7;
+    --status-confirmed: #51cf66;
+    --status-cancelled: #ff6b6b;
+    --status-expired: #868e96;
 }

@@ -45,7 +45,7 @@ export const BookingForm = () => {
                             <input
                                 type="datetime-local"
                                 {...register(name, { required })}
-                                className="border border-(--border-color) rounded px-2 py-1 md:py-2 lg:py-2.5 w-full outline-none focus-visible:border-(--hover-accent-color)"
+                                className="border border-(--border-color) bg-(--both-white) text-black text rounded px-2 py-1 md:py-2 lg:py-2.5 w-full outline-none focus-visible:border-(--hover-accent-color)"
                             />
                         </label>
 
@@ -83,7 +83,7 @@ export const BookingForm = () => {
                     )}
                 </AnimatePresence>
 
-                <Btn type="submit" className="w-full sm:max-w-none">
+                <Btn type="submit" className="w-full sm:max-w-none font-semibold">
                     {isPending ? <DottedLoader /> : 'Забронировать'}
                 </Btn>
             </div>

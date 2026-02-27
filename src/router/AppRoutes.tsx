@@ -6,6 +6,7 @@ import { CreateResourcePage } from '@/pages/create-resource-page/CreateResourceP
 import { RecourcePage } from '@/pages/recource-page/RecourcePage';
 import { RecourceGuard } from '@/pages/recource-page/componentes/recource-guard/RecourceGuard';
 import { BookingPage } from '@/pages/booking-page/BookingPage';
+import { SettingsPage } from '@/pages/settings-page/SettingsPage';
 
 // Роуты приложения
 export const AppRoutes = () => {
@@ -23,7 +24,7 @@ export const AppRoutes = () => {
                     <Route path="booking" element={<BookingPage />} />
                 </Route>
 
-                <Route path={settingsUrl} element={<div>Настройки</div>} />
+                <Route path={settingsUrl} element={<SettingsPage />} />
             </Route>
         </Routes>
     );
