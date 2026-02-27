@@ -11,12 +11,13 @@ import { TitleMain } from '@/components/title-main/TitleMain';
 import { useUpdateBookingStatus } from '@/queries/booking/useUpdateBookingStatus.queries';
 import { useRecourceMain } from './hooks/useRecourceMain';
 import type { FilterListConfig, ChangeStatusBtnsConfig } from './hooks/useRecourceMain';
+import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
 
 export const RecourceMain = () => {
     const { id } = useParams();
 
     const { data, refetch, isLoading, isFetching } = useAllResourceBooking(id ? id : '');
-    const { mutate } = useUpdateBookingStatus(id ? id : '');
+    const { mutate, isPending } = useUpdateBookingStatus(id ? id : '');
     const { bookings } = data || {};
     const { sort, filterListConfig, chageStatusBtnsConfig, formatBookingDate, sortedBookings } = useRecourceMain({ bookings });
 
@@ -46,7 +47,7 @@ export const RecourceMain = () => {
                             <div className="mt-20 md:mt-25 lg:mt-30 flex justify-center w-full">
                                 <RoundedLoader className="w-24 h-24" />
                             </div>
-                        ) : (
+                        ) : bookings?.length > 0 ? (
                             <div className="space-y-3 md:space-y-5">
                                 <ul className="grid grid-cols-3 border border-(--border-color)">
                                     {filterListConfig.map(({ title, type, fn }: FilterListConfig) => {
@@ -86,13 +87,13 @@ export const RecourceMain = () => {
                                         return (
                                             <li
                                                 key={booking.id}
-                                                className="grid items-center overflow-auto grid-cols-3 border border-(--border-color)"
+                                                className="flex justify-center items-center overflow-auto border border-(--border-color) py-1 md:py-1.5 lg:py-2"
                                             >
-                                                <div className="flex mx-1 md:mx-2 h-full py-2 lg:py-1">
+                                                <div className="flex w-full max-w-40 mx-1 md:mx-2 py-2 lg:py-1">
                                                     <Text
                                                         styleVariant={'sm'}
                                                         className={cn(
-                                                            'flex items-center justify-center w-full h-full px-2 md:px-5 py-0.5 font-medium text-(--both-white) rounded-sm',
+                                                            'flex items-center justify-center w-full h-full px-2 md:px-5 py-1 md:py-2 font-medium text-(--both-white) rounded-sm',
                                                             {
                                                                 'bg-(--status-created)': booking.status === 'Created',
                                                                 'bg-(--status-confirmed)': booking.status === 'Confirmed',
@@ -105,35 +106,39 @@ export const RecourceMain = () => {
                                                     </Text>
                                                 </div>
 
-                                                <div className="pl-1 md:pl-2 py-3 border-x border-(--border-color) w-full">
+                                                <div className="pl-1 md:pl-2 border-x border-(--border-color) w-full">
                                                     <Text
                                                         styleVariant={'xs'}
-                                                        className="flex flex-col lg:flex-row gap-x-3 gap-y-1 font-medium w-full overflow-hidden"
+                                                        className="flex flex-col h-full lg:flex-row gap-x-3 gap-y-1 font-medium w-full overflow-hidden"
                                                     >
                                                         <span className="block mb-0.5">{formatBookingDate(booking.startTime)}</span>
                                                         <span>{formatBookingDate(booking.endTime)}</span>
                                                     </Text>
                                                 </div>
 
-                                                <div className="flex items-center justify-center gap-1 sm:gap-2 lg:gap-3 mx-1 md:mx-2 py-3 lg:py-2 h-full">
+                                                <div className="flex items-center justify-center gap-1 sm:gap-2 lg:gap-3 mx-1 md:mx-2 h-full w-full max-w-sm">
                                                     {booking.status === 'Created' ? (
-                                                        chageStatusBtnsConfig.map(({ icon: Icon, type }: ChangeStatusBtnsConfig) => (
-                                                            <button
-                                                                className={cn(
-                                                                    'flex items-center justify-center h-full rounded-sm py-2.5 transition-all duration-200 ease-out cursor-pointer w-full max-w-60',
-                                                                    type === 'Confirmed'
-                                                                        ? 'bg-(--status-created) shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color)'
-                                                                        : 'bg-(--status-cancelled) shadow-[0_2px_2px_var(--shadow-red-color)] hover:bg-(--shadow-red-color)'
-                                                                )}
-                                                                key={type}
-                                                                type="button"
-                                                                onClick={() => mutate({ bookingId: booking.id, status: type })}
-                                                            >
-                                                                <Icon className="text-(--both-white)" />
-                                                            </button>
-                                                        ))
+                                                        isPending ? (
+                                                            <DottedLoader classNames={{ dot: 'bg-(--bg-accent)' }} />
+                                                        ) : (
+                                                            chageStatusBtnsConfig.map(({ icon: Icon, type }: ChangeStatusBtnsConfig) => (
+                                                                <button
+                                                                    className={cn(
+                                                                        'flex items-center justify-center h-full rounded-sm py-2.5 transition-all duration-200 ease-out cursor-pointer w-full',
+                                                                        type === 'Confirmed'
+                                                                            ? 'bg-(--status-created) shadow-[0_2px_2px_var(--shadow-main-color)] hover:bg-(--hover-accent-color)'
+                                                                            : 'bg-(--status-cancelled) shadow-[0_2px_2px_var(--shadow-red-color)] hover:bg-(--shadow-red-color)'
+                                                                    )}
+                                                                    key={type}
+                                                                    type="button"
+                                                                    onClick={() => mutate({ bookingId: booking.id, status: type })}
+                                                                >
+                                                                    <Icon className="text-(--both-white)" />
+                                                                </button>
+                                                            ))
+                                                        )
                                                     ) : (
-                                                        <Text styleVariant={'sm'} className="font-medium">
+                                                        <Text styleVariant={'sm'} className="font-medium shrink-0">
                                                             Действий нет
                                                         </Text>
                                                     )}
@@ -143,6 +148,10 @@ export const RecourceMain = () => {
                                     })}
                                 </ul>
                             </div>
+                        ) : (
+                            <Text styleVariant={'md'} className="font-bold lg:text-2xl xl:text-3xl">
+                                У вас пока нет бронирований
+                            </Text>
                         )}
                     </div>
                 </div>

@@ -10,9 +10,14 @@ export const useUpdateBookingStatus = (resourceId: string) => {
     return useMutation({
         mutationFn: ({ bookingId, status }: { bookingId: CreateBookingRes['id']; status: BookingStatus }) => updateBookingStatus(bookingId, status),
 
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: bookingsKey.resource(resourceId),
+        onSuccess: (_, { bookingId, status }) => {
+            queryClient.setQueryData(bookingsKey.resource(resourceId), (old: { bookings: CreateBookingRes[] } | undefined) => {
+                if (!old) return old;
+
+                return {
+                    ...old,
+                    bookings: old.bookings.map(booking => (booking.id === bookingId ? { ...booking, status } : booking)),
+                };
             });
         },
     });

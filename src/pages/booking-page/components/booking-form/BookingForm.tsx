@@ -19,8 +19,8 @@ export const BookingForm = () => {
     } = useForm<FormValues>();
 
     const { id } = useParams();
-    const { inputsConfig, validateBooking } = useBookingForm({ control });
     const { mutate, isPending } = useCreateBooking({ resourceId: id ? id : '', setError });
+    const { inputsConfig, validateBooking } = useBookingForm({ control });
 
     return (
         <form
