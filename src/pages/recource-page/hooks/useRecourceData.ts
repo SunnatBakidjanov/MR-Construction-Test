@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useResource } from '@/queries/useRecource.queries';
+import { useResource } from '@/queries/resources/useRecource.queries';
 
 export const useRecourceData = () => {
     const params = useParams();

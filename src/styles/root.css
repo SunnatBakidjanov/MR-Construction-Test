@@ -12,7 +12,14 @@
     --text-accent: #fff;
     --border-color: #c0d4e3;
     --shadow-main-color: #004080;
+    --shadow-red-color: #830000;
     --both-white: #fff;
+
+    /* Статусы */
+    --status-created: #006bd6;
+    --status-confirmed: #008000;
+    --status-cancelled: #b10101;
+    --status-expired: #808080;
 }
 
 /* ------------------ Тёмная тема ------------------ */

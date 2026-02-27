@@ -1,6 +1,6 @@
 import { resurcesUrl } from '@/utils/appUrls';
 import { Outlet, Navigate, useParams } from 'react-router-dom';
-import { useResource } from '@/queries/useRecource.queries';
+import { useResource } from '@/queries/resources/useRecource.queries';
 import { RoundedLoader } from '@/components/loaders/rounded-loader/RoundedLoader';
 
 // Гуард для ресурса

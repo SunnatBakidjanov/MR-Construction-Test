@@ -5,12 +5,14 @@ import { bookingsKey } from '@/utils/queryKeys';
 import type { Resource } from '@/types/resources.type';
 import type { UseFormSetError } from 'react-hook-form';
 import type { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 type Args = { resourceId: Resource['id']; setError: UseFormSetError<FormValues> };
 type ApiError = { message?: string };
 
 export const useCreateBooking = ({ resourceId, setError }: Args) => {
     const queryClient = useQueryClient();
+    const naviagate = useNavigate();
 
     return useMutation({
         mutationFn: (data: FormValues) => createBooking(resourceId, data),
@@ -19,6 +21,8 @@ export const useCreateBooking = ({ resourceId, setError }: Args) => {
             queryClient.invalidateQueries({
                 queryKey: bookingsKey.resource(resourceId),
             });
+
+            naviagate(`/resources/${resourceId}`);
         },
 
         onError: (error: Error) => {

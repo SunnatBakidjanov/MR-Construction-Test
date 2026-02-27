@@ -4,7 +4,7 @@ import { useShowCounter } from './hooks/useShowCounter';
 import { RiFileListLine } from 'react-icons/ri';
 import { Text } from '@/components/text/Text';
 import { Btn } from '@/components/btn/Btn';
-import { useCreateResource } from '@/queries/useCreateResource.queries';
+import { useCreateResource } from '@/queries/resources/useCreateResource.queries';
 import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
 
 export type FormValues = { name: string };

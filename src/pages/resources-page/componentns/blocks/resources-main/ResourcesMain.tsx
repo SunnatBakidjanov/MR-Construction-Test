@@ -4,11 +4,11 @@ import { TitleMain } from '@/components/title-main/TitleMain';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SlMagnifier } from 'react-icons/sl';
-import { useAllResources } from '@/queries/useAllRecources.queries';
+import { useAllResources } from '@/queries/resources/useAllRecources.queries';
 import { RoundedLoader } from '@/components/loaders/rounded-loader/RoundedLoader';
 import { Title } from '@/components/title/Title';
-import { MdOutlineRefresh } from 'react-icons/md';
 import { resurcesUrl } from '@/utils/appUrls';
+import { BtnRefetch } from '@/components/btn-refetch/BtnRefetch';
 
 // Блок отображения всех ресурсов
 export const ResourcesMain = () => {
@@ -50,15 +50,7 @@ export const ResourcesMain = () => {
                     <span className="block w-full h-px bg-(--border-color) mt-4 md:mt-5"></span>
 
                     <div className="space-y-2 mt-2 md:mt-3">
-                        <div className="flex justify-end w-full">
-                            <button
-                                type="button"
-                                onClick={() => refetch()}
-                                className="p-1.5 cursor-pointer hover:bg-(--bg-card) rounded-full transition-all duration-200 ease-out"
-                            >
-                                <MdOutlineRefresh className="w-6 h-6" />
-                            </button>
-                        </div>
+                        <BtnRefetch refetch={refetch} />
 
                         {isLoading || isFetching ? (
                             // Если состояние pending, отображаем лоадер

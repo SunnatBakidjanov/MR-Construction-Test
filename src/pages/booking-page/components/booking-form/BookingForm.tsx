@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useBookingForm } from './hooks/useBookingForm';
 import { Btn } from '@/components/btn/Btn';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCreateBooking } from '@/queries/useCreateBooking.queries';
+import { useCreateBooking } from '@/queries/booking/useCreateBooking.queries';
 import { useParams } from 'react-router-dom';
 import { DottedLoader } from '@/components/loaders/dotted-loader/DottedLoader';
 
