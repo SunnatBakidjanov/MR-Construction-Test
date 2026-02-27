@@ -14,7 +14,7 @@ export const MainLayout = () => {
             <main className="flex flex-1">
                 <ToastContainer
                     position="bottom-left"
-                    autoClose={1000000}
+                    autoClose={3000}
                     hideProgressBar={true}
                     newestOnTop
                     closeOnClick
